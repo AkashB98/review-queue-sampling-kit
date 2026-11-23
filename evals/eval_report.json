@@ -1,0 +1,168 @@
+{
+  "failed": 0,
+  "headline": {
+    "budget": 300,
+    "claims": {
+      "all_headline_claims_hold": true,
+      "floor_caps_miscalibrated_blowup": true,
+      "floor_cost_in_good_scenario_is_small": true,
+      "ht_close_to_truth_at_headline_budget": true,
+      "ht_unbiased_across_seeds": true,
+      "miscalibrated_no_floor_se_blows_up": true,
+      "risk_weighted_flags_bad_segment": true,
+      "risk_weighted_se_below_srs_at_headline": true,
+      "srs_flags_bad_segment": false,
+      "stratified_flags_bad_segment": false
+    },
+    "designs": {
+      "risk_weighted": {
+        "bad_segment": {
+          "ci95": [
+            0.329199,
+            0.538156
+          ],
+          "estimate": 0.433677,
+          "flagged": true,
+          "n_sampled": 70,
+          "se": 0.053305
+        },
+        "ci95": [
+          0.069092,
+          0.10073
+        ],
+        "estimate": 0.084911,
+        "se": 0.008071
+      },
+      "srs": {
+        "bad_segment": {
+          "ci95": [
+            0.281651,
+            0.606747
+          ],
+          "estimate": 0.4375,
+          "flagged": false,
+          "n_sampled": 32
+        },
+        "ci95": [
+          0.06259,
+          0.127778
+        ],
+        "estimate": 0.09,
+        "se": 0.016523
+      },
+      "stratified": {
+        "bad_segment": {
+          "ci95": [
+            0.381895,
+            0.695342
+          ],
+          "estimate": 0.542857,
+          "flagged": false,
+          "n_sampled": 35
+        },
+        "ci95": [
+          0.059098,
+          0.107569
+        ],
+        "estimate": 0.083333,
+        "se": 0.012365
+      }
+    },
+    "multiseed_study": {
+      "good_risk": {
+        "mean_truth": 0.08409,
+        "reps": 24,
+        "risk_weighted_floored": {
+          "bias_vs_mean_truth": -0.000273,
+          "empirical_se": 0.00658,
+          "mean_estimate": 0.083818
+        },
+        "risk_weighted_no_floor": {
+          "bias_vs_mean_truth": 0.000752,
+          "empirical_se": 0.006033,
+          "mean_estimate": 0.084842
+        },
+        "srs": {
+          "bias_vs_mean_truth": 0.001882,
+          "empirical_se": 0.015163,
+          "mean_estimate": 0.085972
+        }
+      },
+      "miscalibrated_risk": {
+        "mean_truth": 0.08409,
+        "reps": 24,
+        "risk_weighted_floored": {
+          "bias_vs_mean_truth": -0.006603,
+          "empirical_se": 0.021351,
+          "mean_estimate": 0.077487
+        },
+        "risk_weighted_no_floor": {
+          "bias_vs_mean_truth": 0.004733,
+          "empirical_se": 0.042895,
+          "mean_estimate": 0.088823
+        },
+        "srs": {
+          "bias_vs_mean_truth": 0.001882,
+          "empirical_se": 0.015163,
+          "mean_estimate": 0.085972
+        }
+      }
+    },
+    "pi_floor": 0.01,
+    "true_overall_error_rate": 0.079
+  },
+  "passed": 10,
+  "results": [
+    {
+      "detail": "bad=0.408571 others=[0.032, 0.051111, 0.021333] overall=0.079",
+      "name": "G1 planted structure: 6000 cases, exactly one bad segment (~0.41 vs ~0.02-0.05 elsewhere)",
+      "passed": true
+    },
+    {
+      "detail": "all designs x all budgets exact and duplicate-free",
+      "name": "G2 every sampler spends exactly the budget (150/300/600, unique)",
+      "passed": true
+    },
+    {
+      "detail": "rw est=0.433677 ci=[0.329199, 0.538156] n=70 | srs est=0.4375 ci=[0.281651, 0.606747] n=32",
+      "name": "G3 at budget 300 risk-weighted HT flags the bad segment; SRS does not",
+      "passed": true
+    },
+    {
+      "detail": "mean_est=0.083818 mean_truth=0.08409 bias=-0.000273",
+      "name": "G4 HT is approximately unbiased across 24 fresh queues (|mean estimate - mean truth| <= 0.01)",
+      "passed": true
+    },
+    {
+      "detail": "headline se rw=0.008071 srs=0.016523 | empirical rw=0.00658 srs=0.015163",
+      "name": "G5 risk-weighted beats SRS precision in the good scenario (headline SE and multi-seed empirical SE)",
+      "passed": true
+    },
+    {
+      "detail": "ht_no_floor=0.042895 srs=0.015163",
+      "name": "G6 miscalibrated risk: unfloored HT empirical SE blows up (> 2x SRS)",
+      "passed": true
+    },
+    {
+      "detail": "miscal floored=0.021351 vs no_floor=0.042895 | good floored=0.00658 vs no_floor=0.006033",
+      "name": "G7 the pi_floor caps the blow-up (< 0.5x unfloored) at a small good-scenario cost (< 1.5x unfloored)",
+      "passed": true
+    },
+    {
+      "detail": "min pi floor=0: 0.0; floor=0.01: 0.01; sum=300.0",
+      "name": "G8 floor mechanism is real: min pi >= pi_floor and pis sum to budget",
+      "passed": true
+    },
+    {
+      "detail": "codes=(0, 2, 2)",
+      "name": "G9 CLI check exit codes 0 / 2 / 2 (pass / bad budget / missing file)",
+      "passed": true
+    },
+    {
+      "detail": "rw_se 150=0.012354 300=0.008071 600=0.004554",
+      "name": "G10 report deterministic and RW SE falls as budget grows (150 > 300 > 600)",
+      "passed": true
+    }
+  ],
+  "total": 10
+}
